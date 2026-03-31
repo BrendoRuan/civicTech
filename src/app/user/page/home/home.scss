@@ -1,0 +1,106 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* HERO */
+.hero {
+  background: white; /* 👈 agora branco */
+  color: #1e3a8a; /* 👈 texto azul */
+
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.hero h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #1e3a8a;
+}
+
+.hero p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #64748b; /* cinza suave */
+}
+
+.hero button {
+  background: #2563eb; /* azul */
+  color: white;
+
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.hero button:hover {
+  background: #1e3a8a;
+}
+
+/* GRID PADRÃO */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+
+  border-radius: 16px;
+  text-align: center;
+
+  height: 140px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* STAT */
+.stat {
+  background: white;
+  padding: 20px;
+
+  border-radius: 16px;
+  text-align: center;
+
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.stat h2 {
+  color: #1e3a8a;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+}

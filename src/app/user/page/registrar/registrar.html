@@ -1,0 +1,49 @@
+<div class="registrar">
+
+      <!-- BOTÃO VOLTAR -->
+  <button class="back-btn" type="button" (click)="irParaHome()">
+    ← Voltar
+  </button>
+  
+  <h1>Registrar Problema</h1>
+  <p class="sub">Informe um problema na sua cidade</p>
+
+  <form class="form">
+
+    <!-- TIPO -->
+    <div class="field">
+      <label>Tipo de problema</label>
+      <select>
+        <option>Buraco na rua</option>
+        <option>Iluminação pública</option>
+        <option>Lixo acumulado</option>
+        <option>Outro</option>
+      </select>
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div class="field">
+      <label>Descrição</label>
+      <textarea rows="4" placeholder="Descreva o problema..."></textarea>
+    </div>
+
+    <!-- LOCALIZAÇÃO -->
+    <div class="field">
+      <label>Localização</label>
+      <input type="text" placeholder="Digite o endereço..." />
+    </div>
+
+    <!-- IMAGEM -->
+    <div class="field">
+      <label>Imagem (opcional)</label>
+      <input type="file" />
+    </div>
+
+    <!-- BOTÃO -->
+    <button type="submit" class="btn">
+      Enviar Problema
+    </button>
+
+  </form>
+
+</div>

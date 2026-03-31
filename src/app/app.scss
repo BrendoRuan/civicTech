@@ -1,0 +1,149 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  height: 100vh;
+
+  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  color: white;
+
+  padding: 20px 15px;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: all 0.3s ease;
+}
+
+/* FECHADO */
+.sidebar.closed {
+  width: 80px;
+  min-width: 80px;
+}
+
+/* LOGO */
+.logo {
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* NAV */
+nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.section {
+  margin-top: 20px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  padding-left: 10px;
+}
+
+/* LINKS */
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  text-decoration: none;
+  color: white;
+
+  padding: 12px;
+  border-radius: 10px;
+
+  transition: 0.2s;
+}
+
+/* HOVER */
+nav a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ITEM ATIVO (BONUS) */
+nav a.active {
+  background: white;
+  color: #1e3a8a;
+  font-weight: bold;
+}
+
+/* CENTRALIZA ÍCONE QUANDO FECHADO */
+.sidebar.closed nav a {
+  justify-content: center;
+}
+
+/* CONTEÚDO */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+header {
+  height: 60px;
+
+  background: #1e3a8a;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 0 20px;
+
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* BOTÃO MENU */
+header button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* MAIN */
+main {
+  padding: 25px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.logo-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* BOTÃO */
+.menu-btn {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: white;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  font-size: 16px;
+}

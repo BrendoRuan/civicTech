@@ -1,0 +1,104 @@
+.perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.perfil h1 {
+  color: #1e3a8a;
+}
+
+.sub {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* AVATAR */
+.avatar {
+  width: 80px;
+  height: 80px;
+
+  background: #2563eb;
+  color: white;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 30px;
+}
+
+/* INFO */
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.field p {
+  font-size: 16px;
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* BOTÃO */
+.btn {
+  background: #2563eb;
+  color: white;
+
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+
+  cursor: pointer;
+  font-weight: bold;
+
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background: #1e3a8a;
+}
+.back-btn {
+  align-self: flex-start;
+
+  background: transparent;
+  border: none;
+
+  color: #1e3a8a;
+  font-weight: bold;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  padding: 5px 10px;
+  border-radius: 8px;
+
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(37, 99, 235, 0.1);
+}
