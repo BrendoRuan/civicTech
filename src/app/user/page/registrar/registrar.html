@@ -1,47 +1,120 @@
 <div class="registrar">
 
-      <!-- BOTÃO VOLTAR -->
-  <button class="back-btn" type="button" (click)="irParaHome()">
+  <!-- BOTÃO VOLTAR -->
+  <button
+    class="back-btn"
+    type="button"
+    (click)="irParaHome()"
+  >
     ← Voltar
   </button>
-  
-  <h1>Registrar Problema</h1>
-  <p class="sub">Informe um problema na sua cidade</p>
 
-  <form class="form">
+  <h1>Registrar Problema</h1>
+
+  <p class="sub">
+    Informe um problema na sua cidade
+  </p>
+
+  <form
+    class="form"
+    (ngSubmit)="criarOcorrencia()"
+  >
 
     <!-- TIPO -->
     <div class="field">
+
       <label>Tipo de problema</label>
-      <select>
-        <option>Buraco na rua</option>
-        <option>Iluminação pública</option>
-        <option>Lixo acumulado</option>
-        <option>Outro</option>
+
+      <select [(ngModel)]="categoria" name="categoria">
+
+        <option value="">
+          Selecione
+        </option>
+
+        <option value="Buraco na rua">
+          Buraco na rua
+        </option>
+
+        <option value="Iluminação pública">
+          Iluminação pública
+        </option>
+
+        <option value="Lixo acumulado">
+          Lixo acumulado
+        </option>
+
+        <option value="Outro">
+          Outro
+        </option>
+
       </select>
+
     </div>
 
     <!-- DESCRIÇÃO -->
     <div class="field">
+
       <label>Descrição</label>
-      <textarea rows="4" placeholder="Descreva o problema..."></textarea>
+
+      <textarea
+        rows="4"
+        placeholder="Descreva o problema..."
+        [(ngModel)]="descricao"
+        name="descricao">
+      </textarea>
+
     </div>
 
     <!-- LOCALIZAÇÃO -->
     <div class="field">
+
       <label>Localização</label>
-      <input type="text" placeholder="Digite o endereço..." />
+
+      <input
+        type="text"
+        placeholder="Digite o endereço..."
+        [(ngModel)]="localizacao"
+        name="localizacao"
+      />
+
     </div>
 
     <!-- IMAGEM -->
     <div class="field">
+
       <label>Imagem (opcional)</label>
-      <input type="file" />
+
+      <input
+        type="file"
+        (change)="selecionarImagem($event)"
+      />
+
     </div>
 
-    <!-- BOTÃO -->
-    <button type="submit" class="btn">
-      Enviar Problema
+    <!-- PREVIEW -->
+    <img
+      *ngIf="imagemUrl"
+      [src]="imagemUrl"
+      class="preview"
+    />
+
+    <!-- BOTÃO UPLOAD -->
+    <button
+      type="button"
+      class="btn"
+      (click)="uploadImagem()"
+    >
+      Enviar imagem
+    </button>
+
+    <!-- BOTÃO FINAL -->
+    <button
+      type="submit"
+      class="btn"
+    >
+
+      {{ loading ? 'Enviando...' : 'Enviar Problema' }}
+
     </button>
 
   </form>

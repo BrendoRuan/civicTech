@@ -104,3 +104,111 @@
   }
 
 }
+
+/* ÚLTIMAS OCORRÊNCIAS */
+
+.ultimas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ultimas .header h2 {
+  color: #1e3a8a;
+}
+
+.ocorrencia-card {
+
+  background: white;
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+
+  transition: 0.2s;
+}
+
+.ocorrencia-card:hover {
+  transform: translateY(-3px);
+}
+
+.ocorrencia-card h3 {
+  color: #1e3a8a;
+  margin-bottom: 10px;
+}
+
+.ocorrencia-card p {
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.ocorrencia-card img {
+
+  width: 120px;
+  height: 120px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+}
+
+/* STATUS */
+
+.status {
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: bold;
+
+  width: fit-content;
+
+  display: inline-block;
+}
+
+.analise {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.andamento {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.resolvido {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.cancelado {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 768px) {
+
+  .ocorrencia-card {
+
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ocorrencia-card img {
+
+    width: 100%;
+    height: 220px;
+  }
+}

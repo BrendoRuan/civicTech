@@ -2,33 +2,52 @@
 
   <!-- HERO -->
   <section class="hero">
-    
+
     <h1>Conectando você à sua cidade</h1>
-    <p>Registre problemas e acompanhe soluções em tempo real.</p>
+
+    <p>
+      Registre problemas e acompanhe soluções em tempo real.
+    </p>
 
     <button (click)="irParaRegistrar()">
       Registrar Problema
     </button>
+
   </section>
 
   <!-- AÇÕES -->
   <section class="grid">
 
-    <div class="card" (click)="irParaRegistrar()">
+    <div
+      class="card"
+      (click)="irParaRegistrar()"
+    >
       <div class="icon">📍</div>
+
       <h3>Registrar</h3>
+
       <p>Informe um problema</p>
     </div>
 
-    <div class="card" (click)="irParaOcorrencia()">
+    <div
+      class="card"
+      (click)="irParaOcorrencia()"
+    >
       <div class="icon">📋</div>
+
       <h3>Minhas</h3>
+
       <p>Acompanhe pedidos</p>
     </div>
 
-    <div class="card" (click)="irParaPerfil()">
+    <div
+      class="card"
+      (click)="irParaPerfil()"
+    >
       <div class="icon">👤</div>
+
       <h3>Perfil</h3>
+
       <p>Seus dados</p>
     </div>
 
@@ -38,18 +57,74 @@
   <section class="grid">
 
     <div class="stat">
-      <h2>120</h2>
+      <h2>{{ totalOcorrencias }}</h2>
       <p>Ocorrências</p>
     </div>
 
     <div class="stat">
-      <h2>85</h2>
+      <h2>{{ totalResolvidas }}</h2>
       <p>Resolvidas</p>
     </div>
 
     <div class="stat">
-      <h2>35</h2>
+      <h2>{{ totalAndamento }}</h2>
       <p>Em andamento</p>
+    </div>
+
+  </section>
+
+  <!-- ÚLTIMAS OCORRÊNCIAS -->
+  <section class="ultimas">
+
+    <div class="header">
+
+      <h2>Últimas ocorrências</h2>
+
+    </div>
+
+    <div
+      class="ocorrencia-card"
+      *ngFor="let ocorrencia of ocorrencias"
+    >
+
+      <div class="conteudo">
+
+        <h3>{{ ocorrencia.titulo }}</h3>
+
+        <p>
+          {{ ocorrencia.descricao }}
+        </p>
+
+        <span
+          class="status"
+          [ngClass]="{
+            'analise':
+              ocorrencia.status === 'EM_ANALISE',
+
+            'andamento':
+              ocorrencia.status === 'EM_ANDAMENTO',
+
+            'resolvido':
+              ocorrencia.status === 'RESOLVIDO',
+
+            'cancelado':
+              ocorrencia.status === 'CANCELADO'
+          }"
+        >
+
+          {{ ocorrencia.status }}
+
+        </span>
+
+      </div>
+
+      <!-- IMAGEM -->
+      <img
+        *ngIf="ocorrencia.imagemUrl"
+        [src]="ocorrencia.imagemUrl"
+        alt="Imagem da ocorrência"
+      />
+
     </div>
 
   </section>
