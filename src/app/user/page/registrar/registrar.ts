@@ -22,7 +22,9 @@ export class Registrar {
   localizacao = '';
 
   imagemSelecionada!: File;
-  imagemUrl = '';
+
+    // ✅ ADICIONE ISSO
+  previewUrl: string | null = null;
 
   loading = false;
 
@@ -31,9 +33,22 @@ export class Registrar {
   }
 
   selecionarImagem(event: any) {
+    const file = event.target.files[0];
 
-    this.imagemSelecionada =
-      event.target.files[0];
+    this.imagemSelecionada = file;
+
+    // ✅ CRIA O PREVIEW DA IMAGEM
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.previewUrl = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);
+    } else {
+      this.previewUrl = null;
+    }
   }
 
   criarOcorrencia() {
