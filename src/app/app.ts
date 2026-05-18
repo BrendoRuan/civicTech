@@ -34,17 +34,20 @@ export class App {
   // CONTROLE LOGIN ADMIN
   senhaAdmin = '';
 
-  acessoAdmin = false;
+  acessoAdmin = localStorage.getItem('admin') === 'true';
 
   // Simulação (depois vem do Supabase)
   isAdmin = false;
 
-  toggleMenu() {
 
-    this.menuFechado =
-      !this.menuFechado;
-  }
+toggleMenu() {
+  this.menuFechado = !this.menuFechado;
+}
 
+// detecta mobile
+isMobile() {
+  return window.innerWidth <= 768;
+}
   irParaRegistrar() {
 
     this.router.navigate([

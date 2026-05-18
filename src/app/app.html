@@ -1,144 +1,62 @@
 <div class="layout">
 
-  <!-- MENU -->
+  <!-- OVERLAY MOBILE -->
+  <div
+    class="overlay"
+    *ngIf="!menuFechado && isMobile()"
+    (click)="toggleMenu()"
+  ></div>
+
+  <!-- SIDEBAR -->
   <aside
     class="sidebar"
     [class.closed]="menuFechado"
   >
 
-    <!-- LOGO -->
     <div class="logo">
-
-      <div class="logo-content">
-
-        <h2 *ngIf="!menuFechado">
-          Civic Tech
-        </h2>
-
-        <span *ngIf="menuFechado">
-          CT
-        </span>
-
-        <button
-          class="menu-btn"
-          (click)="toggleMenu()"
-        >
-          ☰
-        </button>
-
-      </div>
-
+      <h2 *ngIf="!menuFechado">Civic Tech</h2>
+      <span *ngIf="menuFechado">CT</span>
     </div>
 
-    <!-- MENU -->
     <nav>
 
-      <!-- USER -->
-      <p
-        class="section"
-        *ngIf="!menuFechado"
-      >
-        USER
-      </p>
+      <p class="section" *ngIf="!menuFechado">USER</p>
 
-      <!-- HOME -->
-      <a
-        routerLink="/home"
-        routerLinkActive="ativo"
-      >
-
+      <a routerLink="/home" routerLinkActive="ativo">
         <span>🏠</span>
-
-        <span *ngIf="!menuFechado">
-          Home
-        </span>
-
+        <span *ngIf="!menuFechado">Home</span>
       </a>
 
-      <!-- OCORRENCIA -->
-      <a
-        routerLink="/ocorrencia"
-        routerLinkActive="ativo"
-      >
-
+      <a routerLink="/ocorrencia" routerLinkActive="ativo">
         <span>⚠️</span>
-
-        <span *ngIf="!menuFechado">
-          Ocorrência
-        </span>
-
+        <span *ngIf="!menuFechado">Ocorrência</span>
       </a>
 
-      <!-- PERFIL -->
-      <a
-        routerLink="/perfil"
-        routerLinkActive="ativo"
-      >
-
+      <a routerLink="/perfil" routerLinkActive="ativo">
         <span>👤</span>
-
-        <span *ngIf="!menuFechado">
-          Perfil
-        </span>
-
+        <span *ngIf="!menuFechado">Perfil</span>
       </a>
-      <!-- FEEDBACK -->
-<a
-  routerLink="/feedback"
-  routerLinkActive="ativo"
->
 
-  <span>⭐</span>
+      <a routerLink="/feedback" routerLinkActive="ativo">
+        <span>⭐</span>
+        <span *ngIf="!menuFechado">Feedback</span>
+      </a>
 
-  <span *ngIf="!menuFechado">
-    Feedback
-  </span>
+      <p class="section" *ngIf="!menuFechado">ADMIN</p>
 
-</a>
-
-      <!-- ADMIN -->
-      <p
-        class="section"
-        *ngIf="!menuFechado"
-      >
-        ADMIN
-      </p>
-
-      <a
-        (click)="irParaAdmin()"
-      >
-
+      <a (click)="irParaAdmin()">
         <span>📊</span>
-
-        <span *ngIf="!menuFechado">
-          Dashboard
-        </span>
-
+        <span *ngIf="!menuFechado">Dashboard</span>
       </a>
 
-      <!-- LOGOUT ADMIN -->
-      <a
-        *ngIf="acessoAdmin"
-        (click)="logoutAdmin()"
-      >
-
+      <a *ngIf="acessoAdmin" (click)="logoutAdmin()">
         <span>🚪</span>
-
-        <span *ngIf="!menuFechado">
-          Sair Admin
-        </span>
-
+        <span *ngIf="!menuFechado">Sair Admin</span>
       </a>
 
-      <!-- CONFIG -->
       <a>
-
         <span>⚙️</span>
-
-        <span *ngIf="!menuFechado">
-          Config
-        </span>
-
+        <span *ngIf="!menuFechado">Config</span>
       </a>
 
     </nav>
@@ -148,10 +66,13 @@
   <!-- CONTEÚDO -->
   <div class="content">
 
+    <!-- ÚNICO BOTÃO MENU -->
+    <button class="menu-float-btn" (click)="toggleMenu()">
+      ☰
+    </button>
+
     <main>
-
       <router-outlet></router-outlet>
-
     </main>
 
   </div>
