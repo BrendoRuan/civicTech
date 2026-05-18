@@ -12,87 +12,55 @@ import { CommonModule } from '@angular/common';
   styleUrl: './registrar.scss',
 })
 export class Registrar {
-  private router = inject(Router);
 
+  private router = inject(Router);
   private service = inject(OcorrenciaService);
 
   titulo = '';
-
   descricao = '';
-
   categoria = '';
-
   localizacao = '';
 
   imagemSelecionada!: File;
-
   imagemUrl = '';
 
   loading = false;
 
-  // VOLTAR
   irParaHome() {
     this.router.navigate(['/home']);
   }
 
-  // SELECIONAR IMAGEM
   selecionarImagem(event: any) {
 
     this.imagemSelecionada =
       event.target.files[0];
   }
 
-  // UPLOAD
-  uploadImagem() {
-
-    if (!this.imagemSelecionada) return;
-
-    this.service
-      .uploadImagem(this.imagemSelecionada)
-      .subscribe({
-
-        next: (url: string) => {
-
-          this.imagemUrl = url;
-
-          console.log(url);
-
-          alert('Imagem enviada!');
-        },
-
-        error: (err) => {
-
-          console.error(err);
-
-          alert('Erro ao enviar imagem');
-        }
-      });
-  }
-
-  // CRIAR OCORRÊNCIA
   criarOcorrencia() {
 
     this.loading = true;
 
-    const body = {
+    const executarCriacao = (
+      imagemUrl: string
+    ) => {
 
-      titulo: this.categoria,
+      const body = {
 
-      descricao: this.descricao,
+        titulo: this.titulo,
+        descricao: this.descricao,
+        categoria: this.categoria,
 
-      categoria: this.categoria,
+        imagemUrl: imagemUrl || null,
 
-      imagemUrl: this.imagemUrl,
+        latitude: -8.0476,
+        longitude: -34.8770,
 
-      latitude: -8.0476,
+        nomeUsuario: 'Brendo'
+      };
 
-      longitude: -34.8770,
+      console.log('BODY:', body);
 
-      nomeUsuario: 'Brendo'
-    };
-
-    this.service.criar(body)
-      .subscribe({
+      this.service.criar(body).subscribe({
 
         next: () => {
 
@@ -112,5 +80,35 @@ export class Registrar {
           alert('Erro ao criar ocorrência');
         }
       });
+    };
+
+    // SE EXISTE IMAGEM
+    if (this.imagemSelecionada) {
+
+      this.service
+        .uploadImagem(this.imagemSelecionada)
+        .subscribe({
+
+          next: (res: any) => {
+
+            console.log('UPLOAD:', res);
+
+            executarCriacao(res.url);
+          },
+
+          error: (err) => {
+
+            this.loading = false;
+
+            console.error(err);
+
+            alert('Erro ao enviar imagem');
+          }
+        });
+
+    } else {
+
+      executarCriacao('');
+    }
   }
 }

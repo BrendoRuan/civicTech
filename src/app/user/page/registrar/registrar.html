@@ -22,38 +22,19 @@
 
     <!-- TIPO -->
     <div class="field">
-
       <label>Tipo de problema</label>
 
       <select [(ngModel)]="categoria" name="categoria">
-
-        <option value="">
-          Selecione
-        </option>
-
-        <option value="Buraco na rua">
-          Buraco na rua
-        </option>
-
-        <option value="Iluminação pública">
-          Iluminação pública
-        </option>
-
-        <option value="Lixo acumulado">
-          Lixo acumulado
-        </option>
-
-        <option value="Outro">
-          Outro
-        </option>
-
+        <option value="">Selecione</option>
+        <option value="Buraco na rua">Buraco na rua</option>
+        <option value="Iluminação pública">Iluminação pública</option>
+        <option value="Lixo acumulado">Lixo acumulado</option>
+        <option value="Outro">Outro</option>
       </select>
-
     </div>
 
     <!-- DESCRIÇÃO -->
     <div class="field">
-
       <label>Descrição</label>
 
       <textarea
@@ -62,12 +43,10 @@
         [(ngModel)]="descricao"
         name="descricao">
       </textarea>
-
     </div>
 
     <!-- LOCALIZAÇÃO -->
     <div class="field">
-
       <label>Localização</label>
 
       <input
@@ -76,45 +55,33 @@
         [(ngModel)]="localizacao"
         name="localizacao"
       />
-
     </div>
 
     <!-- IMAGEM -->
     <div class="field">
-
       <label>Imagem (opcional)</label>
 
       <input
         type="file"
+        accept="image/*"
         (change)="selecionarImagem($event)"
       />
-
     </div>
 
-    <!-- PREVIEW -->
+    <!-- PREVIEW (AGORA FUNCIONA ANTES DO UPLOAD) -->
     <img
-      *ngIf="imagemUrl"
-      [src]="imagemUrl"
+      *ngIf="previewUrl"
+      [src]="previewUrl"
       class="preview"
     />
-
-    <!-- BOTÃO UPLOAD -->
-    <button
-      type="button"
-      class="btn"
-      (click)="uploadImagem()"
-    >
-      Enviar imagem
-    </button>
 
     <!-- BOTÃO FINAL -->
     <button
       type="submit"
       class="btn"
+      [disabled]="loading || !categoria || !descricao"
     >
-
       {{ loading ? 'Enviando...' : 'Enviar Problema' }}
-
     </button>
 
   </form>

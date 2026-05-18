@@ -1,87 +1,95 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { FeedbackService } from '../../service/feedback';
+import { Feedback } from '../../models/feedback/feedback-module';
+
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-feed-back',
+  selector: 'app-feedback',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule
+  ],
   templateUrl: './feed-back.html',
-  styleUrl: './feed-back.scss',
+  styleUrl: './feed-back.scss'
 })
-export class FeedBack {
+export class FeedBack
+implements OnInit {
 
-  private router = inject(Router);
+  feedbacks =
+    signal<Feedback[]>([]);
 
-  private http = inject(HttpClient);
-
-  api =
-  'https://civictechback.onrender.com/feedbacks';
-
-  loading = false;
-
-  feedback: any = {
+  feedback: Feedback = {
 
     nomeUsuario: '',
-
-    pergunta1: 5,
-    pergunta2: 5,
-    pergunta3: 5,
-    pergunta4: 5,
-    pergunta5: 5,
-    pergunta6: 5,
-    pergunta7: 5,
-    pergunta8: 5,
-    pergunta9: 5,
-    pergunta10: 5,
-
-    nota: 5,
-
-    comentario: ''
+    comentario: '',
+    nota: 0
   };
+
+  constructor(
+    private service: FeedbackService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+
+    this.listar();
+  }
+
+  irParaHome() {
+  this.router.navigate(['/home']); // ajuste a rota se necessário
+}
+
+  listar() {
+
+    this.service.listar()
+      .subscribe(res => {
+
+        this.feedbacks.set(res);
+      });
+  }
 
   enviar() {
 
-    this.loading = true;
+    if (
+      !this.feedback.nomeUsuario ||
+      !this.feedback.comentario ||
+      this.feedback.nota <= 0
+    ) {
 
-    this.http.post(
-      `${this.api}/criar`,
+      alert(
+        'Preencha todos os campos'
+      );
+
+      return;
+    }
+
+    this.service.criar(
       this.feedback
-    )
-    .subscribe({
+    ).subscribe(() => {
 
-      next: () => {
+      alert(
+        'Feedback enviado com sucesso'
+      );
 
-        this.loading = false;
+      this.resetarFormulario();
 
-        alert(
-          'Feedback enviado!'
-        );
-
-        this.router.navigate([
-          '/home'
-        ]);
-      },
-
-      error: (err) => {
-
-        this.loading = false;
-
-        console.error(err);
-
-        alert(
-          'Erro ao enviar feedback'
-        );
-      }
+      this.listar();
     });
   }
 
-  voltar() {
+  resetarFormulario() {
 
-    this.router.navigate([
-      '/home'
-    ]);
+    this.feedback = {
+
+      nomeUsuario: '',
+      comentario: '',
+      nota: 0
+    };
   }
+  
 }

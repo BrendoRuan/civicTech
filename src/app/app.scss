@@ -147,3 +147,13 @@ main {
 
   font-size: 16px;
 }
+nav a {
+  cursor: pointer;
+}
+.ativo {
+  background: #2563eb;
+  color: white;
+}
+nav a {
+  user-select: none;
+}

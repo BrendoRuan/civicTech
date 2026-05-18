@@ -1,106 +1,135 @@
 <div class="feedback">
-
+       <!-- BOTÃO VOLTAR -->
   <button
     class="back-btn"
-    (click)="voltar()"
+    type="button"
+    (click)="irParaHome()"
   >
     ← Voltar
   </button>
 
-  <h1>Pesquisa de Satisfação</h1>
+  <!-- FORM -->
+  <div class="card-form">
 
-  <p class="sub">
-    Sua opinião ajuda a melhorar o Civic Tech
-  </p>
+    <h1>
+      Feedback Civic Tech
+    </h1>
 
-  <form
-    class="form"
-    (ngSubmit)="enviar()"
-  >
+    <p class="sub">
+      Sua opinião ajuda a melhorar o sistema
+    </p>
 
-    <div class="field">
-
-      <label>Seu nome</label>
-
-      <input
-        type="text"
-        [(ngModel)]="feedback.nomeUsuario"
-        name="nomeUsuario"
-      />
-    </div>
+    <!-- NOME -->
+    <input
+      type="text"
+      placeholder="Seu nome"
+      [(ngModel)]="feedback.nomeUsuario"
+    >
 
     <!-- PERGUNTAS -->
-    <div
-      class="question"
-      *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]"
-    >
+    <div class="perguntas">
 
-      <label>
+      <h3>
+        Avaliação de Usabilidade
+      </h3>
 
-        Pergunta {{ n }}
+      <p>
+        Responda no comentário abaixo:
+      </p>
 
-      </label>
+      <ul>
 
-      <select
-        [(ngModel)]="feedback['pergunta' + n]"
-        [name]="'pergunta' + n"
-      >
+        <li>
+          O site foi fácil de navegar?
+        </li>
 
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
+        <li>
+          O visual do sistema foi agradável?
+        </li>
 
-      </select>
+        <li>
+          As funcionalidades foram fáceis de entender?
+        </li>
+
+        <li>
+          O desempenho do sistema foi satisfatório?
+        </li>
+
+        <li>
+          Você utilizaria o Civic Tech novamente?
+        </li>
+
+      </ul>
+
+      <p class="obs">
+        Conte sua experiência e dê
+        uma nota para o sistema.
+      </p>
 
     </div>
+
+    <!-- COMENTARIO -->
+    <textarea
+      placeholder="Digite seu comentário"
+      [(ngModel)]="feedback.comentario"
+    ></textarea>
 
     <!-- NOTA -->
-    <div class="field">
+    <label>
+      Nota do sistema
+    </label>
 
-      <label>Nota geral</label>
-
-      <select
-        [(ngModel)]="feedback.nota"
-        name="nota"
-      >
-
-        <option [value]="1">1</option>
-        <option [value]="2">2</option>
-        <option [value]="3">3</option>
-        <option [value]="4">4</option>
-        <option [value]="5">5</option>
-
-      </select>
-
-    </div>
-
-    <!-- COMENTÁRIO -->
-    <div class="field">
-
-      <label>Comentário</label>
-
-      <textarea
-        rows="5"
-        [(ngModel)]="feedback.comentario"
-        name="comentario"
-      ></textarea>
-
-    </div>
-
-    <button
-      class="btn"
-      type="submit"
+    <select
+      [(ngModel)]="feedback.nota"
     >
 
-      {{ loading
-        ? 'Enviando...'
-        : 'Enviar Feedback'
-      }}
+      <option [ngValue]="0">
+        Selecione
+      </option>
 
+      <option [ngValue]="1">1</option>
+      <option [ngValue]="2">2</option>
+      <option [ngValue]="3">3</option>
+      <option [ngValue]="4">4</option>
+      <option [ngValue]="5">5</option>
+
+    </select>
+
+    <!-- BOTAO -->
+    <button (click)="enviar()">
+      Enviar Feedback
     </button>
 
-  </form>
+  </div>
+
+  <!-- LISTA -->
+  <div class="lista">
+
+    <div
+      class="feedback-card"
+      *ngFor="
+        let item of feedbacks()
+      "
+    >
+
+      <div class="topo">
+
+        <h2>
+          {{ item.nomeUsuario }}
+        </h2>
+
+        <span>
+          ⭐ {{ item.nota }}
+        </span>
+
+      </div>
+
+      <p>
+        {{ item.comentario }}
+      </p>
+
+    </div>
+
+  </div>
 
 </div>

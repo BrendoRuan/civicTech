@@ -150,4 +150,11 @@ export class Home implements OnInit {
       '/perfil'
     ]);
   }
+
+  irParaFeedback() {
+
+    this.router.navigate([
+      '/feedback'
+    ]);
+  }
 }

@@ -1,137 +1,376 @@
 <div class="admin">
 
-  <h1>Painel Administrativo</h1>
+  <!-- HEADER -->
+  <div class="header">
 
-  <div class="topo">
+    <h1>
+      Painel Administrativo
+    </h1>
 
-    <input
-      type="text"
-      placeholder="Buscar ocorrência"
-      [(ngModel)]="busca"
-    >
-
-    <button (click)="buscar()">
-      Buscar
-    </button>
+    <p>
+      Gerencie ocorrências e feedbacks
+      do Civic Tech
+    </p>
 
   </div>
 
-  <div
-    class="card"
-    *ngFor="let ocorrencia of ocorrencias()"
+  <!-- CARDS -->
+  <div class="cards-admin">
+
+    <!-- OCORRENCIAS -->
+    <div
+      class="admin-card"
+      (click)="abaSelecionada = 'ocorrencias'"
+    >
+
+      <div class="icon">
+        ⚠️
+      </div>
+
+      <h2>
+        Ocorrências
+      </h2>
+
+      <p>
+        Gerencie denúncias,
+        status e publicações
+      </p>
+
+    </div>
+
+    <!-- FEEDBACKS -->
+    <div
+      class="admin-card"
+      (click)="abaSelecionada = 'feedbacks'"
+    >
+
+      <div class="icon">
+        ⭐
+      </div>
+
+      <h2>
+        Feedbacks
+      </h2>
+
+      <p>
+        Visualize avaliações
+        e opiniões dos usuários
+      </p>
+
+    </div>
+
+  </div>
+
+  <!-- ========================= -->
+  <!-- OCORRENCIAS -->
+  <!-- ========================= -->
+
+  <section
+    class="section"
+    *ngIf="
+      abaSelecionada ===
+      'ocorrencias'
+    "
   >
 
-    <h2>
-      {{ ocorrencia.titulo }}
-    </h2>
+    <div class="topo">
 
-    <p>
-      {{ ocorrencia.descricao }}
-    </p>
-
-    <span class="status">
-      {{ ocorrencia.status }}
-    </span>
-
-    <div class="acoes">
-
-      <button
-        (click)="editar(ocorrencia)"
+      <input
+        type="text"
+        placeholder="Buscar ocorrência"
+        [(ngModel)]="busca"
       >
-        Editar
-      </button>
 
-      <button
-        (click)="alterarStatus(
-          ocorrencia.id!,
-          'RESOLVIDO'
-        )"
-      >
-        Resolver
-      </button>
-
-      <button
-        (click)="alterarStatus(
-          ocorrencia.id!,
-          'EM_ANALISE'
-        )"
-      >
-        Em análise
-      </button>
-
-      <button
-        class="delete"
-        (click)="deletar(ocorrencia.id!)"
-      >
-        Deletar
+      <button (click)="buscar()">
+        Buscar
       </button>
 
     </div>
+
+    <div
+      class="card"
+      *ngFor="
+        let ocorrencia of ocorrencias()
+      "
+    >
+
+      <div class="card-top">
+
+        <h2>
+          {{ ocorrencia.titulo }}
+        </h2>
+
+        <span class="status">
+          {{ ocorrencia.status }}
+        </span>
+
+      </div>
+
+      <p>
+        {{ ocorrencia.descricao }}
+      </p>
+
+      <div class="acoes">
+
+        <button
+          (click)="editar(
+            ocorrencia
+          )"
+        >
+          {{
+            editando?.id ===
+            ocorrencia.id
+            ? 'Fechar'
+            : 'Editar'
+          }}
+        </button>
+
+        <button
+          class="delete"
+          (click)="deletar(
+            ocorrencia.id!
+          )"
+        >
+          Deletar
+        </button>
+
+      </div>
+
+<!-- EDITAR -->
+
+<div
+  class="edit-box"
+  *ngIf="
+    editando?.id ===
+    ocorrencia.id
+  "
+>
+
+  <input
+    type="text"
+    [(ngModel)]="
+      editando!.titulo
+    "
+    placeholder="Título"
+  >
+
+  <textarea
+    [(ngModel)]="
+      editando!.descricao
+    "
+    placeholder="Descrição"
+  ></textarea>
+
+  <input
+    type="text"
+    [(ngModel)]="
+      editando!.categoria
+    "
+    placeholder="Categoria"
+  >
+
+  <!-- STATUS -->
+
+  <select
+    [(ngModel)]="
+      editando!.status
+    "
+  >
+
+    <option value="EM_ANALISE">
+      Em análise
+    </option>
+
+    <option value="EM_ANDAMENTO">
+      Em andamento
+    </option>
+
+    <option value="RESOLVIDO">
+      Resolvido
+    </option>
+
+    <option value="CANCELADO">
+      Cancelado
+    </option>
+
+  </select>
+
+  <!-- IMAGEM -->
+
+  <label>
+    Upload Imagem
+  </label>
+
+  <input
+    type="file"
+    (change)="uploadImagem(
+      $event
+    )"
+  >
+
+  <!-- VIDEO -->
+
+  <label>
+    Upload Vídeo
+  </label>
+
+  <input
+    type="file"
+    (change)="uploadVideo(
+      $event
+    )"
+  >
+
+  <div class="acoes">
+
+    <button
+      class="resolve"
+      (click)="salvar()"
+    >
+      Salvar
+    </button>
+
+    <button
+      class="cancel"
+      (click)="editando = null"
+    >
+      Cancelar
+    </button>
 
   </div>
 
 </div>
 
-<!-- MODAL -->
+    </div>
 
-<div
-  class="modal"
-  *ngIf="editando"
->
+  </section>
 
-  <div class="modal-content">
+  <!-- ========================= -->
+  <!-- FEEDBACKS -->
+  <!-- ========================= -->
 
-    <h2>Editar Ocorrência</h2>
+  <section
+    class="section"
+    *ngIf="
+      abaSelecionada ===
+      'feedbacks'
+    "
+  >
 
-    <input
-      type="text"
-      [(ngModel)]="editando.titulo"
-      placeholder="Título"
+    <div
+      class="feedback-card"
+      *ngFor="
+        let feedback of feedbacks()
+      "
     >
 
-    <textarea
-      [(ngModel)]="editando.descricao"
-      placeholder="Descrição"
-    ></textarea>
+      <div class="topo-feedback">
 
-    <input
-      type="text"
-      [(ngModel)]="editando.categoria"
-      placeholder="Categoria"
-    >
+        <div>
 
-    <label>
-      Upload Imagem
-    </label>
+          <h2>
+            {{ feedback.nomeUsuario }}
+          </h2>
 
-    <input
-      type="file"
-      (change)="uploadImagem($event)"
-    >
+          <span class="nota">
+            ⭐ {{ feedback.nota }}
+          </span>
 
-    <label>
-      Upload Vídeo
-    </label>
+        </div>
 
-    <input
-      type="file"
-      (change)="uploadVideo($event)"
-    >
+      </div>
 
-    <div class="acoes">
+      <p>
+        {{ feedback.comentario }}
+      </p>
 
-      <button (click)="salvar()">
-        Salvar
-      </button>
+      <div class="acoes">
 
-      <button
-        (click)="editando = null"
+        <button
+          (click)="editarFeedback(
+            feedback
+          )"
+        >
+          {{
+            feedbackEditando?.id ===
+            feedback.id
+            ? 'Fechar'
+            : 'Editar'
+          }}
+        </button>
+
+        <button
+          class="delete"
+          (click)="deletarFeedback(
+            feedback.id!
+          )"
+        >
+          Deletar
+        </button>
+
+      </div>
+
+      <!-- EDITAR FEEDBACK -->
+
+      <div
+        class="edit-box"
+        *ngIf="
+          feedbackEditando?.id ===
+          feedback.id
+        "
       >
-        Cancelar
-      </button>
+
+        <input
+          type="text"
+          [(ngModel)]="
+            feedbackEditando!.nomeUsuario
+          "
+          placeholder="Nome"
+        >
+
+        <textarea
+          [(ngModel)]="
+            feedbackEditando!.comentario
+          "
+          placeholder="Comentário"
+        ></textarea>
+
+        <select
+          [(ngModel)]="
+            feedbackEditando!.nota
+          "
+        >
+
+          <option [ngValue]="1">1</option>
+          <option [ngValue]="2">2</option>
+          <option [ngValue]="3">3</option>
+          <option [ngValue]="4">4</option>
+          <option [ngValue]="5">5</option>
+
+        </select>
+
+        <div class="acoes">
+
+          <button
+            class="resolve"
+            (click)="salvarFeedback()"
+          >
+            Salvar
+          </button>
+
+          <button
+            class="cancel"
+            (click)="feedbackEditando = null"
+          >
+            Cancelar
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
-  </div>
+  </section>
 
 </div>
