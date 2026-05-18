@@ -1,0 +1,106 @@
+<div class="feedback">
+
+  <button
+    class="back-btn"
+    (click)="voltar()"
+  >
+    ← Voltar
+  </button>
+
+  <h1>Pesquisa de Satisfação</h1>
+
+  <p class="sub">
+    Sua opinião ajuda a melhorar o Civic Tech
+  </p>
+
+  <form
+    class="form"
+    (ngSubmit)="enviar()"
+  >
+
+    <div class="field">
+
+      <label>Seu nome</label>
+
+      <input
+        type="text"
+        [(ngModel)]="feedback.nomeUsuario"
+        name="nomeUsuario"
+      />
+    </div>
+
+    <!-- PERGUNTAS -->
+    <div
+      class="question"
+      *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]"
+    >
+
+      <label>
+
+        Pergunta {{ n }}
+
+      </label>
+
+      <select
+        [(ngModel)]="feedback['pergunta' + n]"
+        [name]="'pergunta' + n"
+      >
+
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+
+      </select>
+
+    </div>
+
+    <!-- NOTA -->
+    <div class="field">
+
+      <label>Nota geral</label>
+
+      <select
+        [(ngModel)]="feedback.nota"
+        name="nota"
+      >
+
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+        <option [value]="4">4</option>
+        <option [value]="5">5</option>
+
+      </select>
+
+    </div>
+
+    <!-- COMENTÁRIO -->
+    <div class="field">
+
+      <label>Comentário</label>
+
+      <textarea
+        rows="5"
+        [(ngModel)]="feedback.comentario"
+        name="comentario"
+      ></textarea>
+
+    </div>
+
+    <button
+      class="btn"
+      type="submit"
+    >
+
+      {{ loading
+        ? 'Enviando...'
+        : 'Enviar Feedback'
+      }}
+
+    </button>
+
+  </form>
+
+</div>

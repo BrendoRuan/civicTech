@@ -1,0 +1,137 @@
+<div class="admin">
+
+  <h1>Painel Administrativo</h1>
+
+  <div class="topo">
+
+    <input
+      type="text"
+      placeholder="Buscar ocorrência"
+      [(ngModel)]="busca"
+    >
+
+    <button (click)="buscar()">
+      Buscar
+    </button>
+
+  </div>
+
+  <div
+    class="card"
+    *ngFor="let ocorrencia of ocorrencias()"
+  >
+
+    <h2>
+      {{ ocorrencia.titulo }}
+    </h2>
+
+    <p>
+      {{ ocorrencia.descricao }}
+    </p>
+
+    <span class="status">
+      {{ ocorrencia.status }}
+    </span>
+
+    <div class="acoes">
+
+      <button
+        (click)="editar(ocorrencia)"
+      >
+        Editar
+      </button>
+
+      <button
+        (click)="alterarStatus(
+          ocorrencia.id!,
+          'RESOLVIDO'
+        )"
+      >
+        Resolver
+      </button>
+
+      <button
+        (click)="alterarStatus(
+          ocorrencia.id!,
+          'EM_ANALISE'
+        )"
+      >
+        Em análise
+      </button>
+
+      <button
+        class="delete"
+        (click)="deletar(ocorrencia.id!)"
+      >
+        Deletar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div
+  class="modal"
+  *ngIf="editando"
+>
+
+  <div class="modal-content">
+
+    <h2>Editar Ocorrência</h2>
+
+    <input
+      type="text"
+      [(ngModel)]="editando.titulo"
+      placeholder="Título"
+    >
+
+    <textarea
+      [(ngModel)]="editando.descricao"
+      placeholder="Descrição"
+    ></textarea>
+
+    <input
+      type="text"
+      [(ngModel)]="editando.categoria"
+      placeholder="Categoria"
+    >
+
+    <label>
+      Upload Imagem
+    </label>
+
+    <input
+      type="file"
+      (change)="uploadImagem($event)"
+    >
+
+    <label>
+      Upload Vídeo
+    </label>
+
+    <input
+      type="file"
+      (change)="uploadVideo($event)"
+    >
+
+    <div class="acoes">
+
+      <button (click)="salvar()">
+        Salvar
+      </button>
+
+      <button
+        (click)="editando = null"
+      >
+        Cancelar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

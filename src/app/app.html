@@ -1,48 +1,133 @@
 <div class="layout">
 
   <!-- MENU -->
-  <aside class="sidebar" [class.closed]="menuFechado">
+  <aside
+    class="sidebar"
+    [class.closed]="menuFechado"
+  >
 
-   <div class="logo">
+    <!-- LOGO -->
+    <div class="logo">
 
-  <div class="logo-content">
-    <h2 *ngIf="!menuFechado">Civic Tech</h2>
-    <span *ngIf="menuFechado">CT</span>
+      <div class="logo-content">
 
-    <button class="menu-btn" (click)="toggleMenu()">
-      {{ menuFechado ? '☰' : '☰' }}
-    </button>
-  </div>
+        <h2 *ngIf="!menuFechado">
+          Civic Tech
+        </h2>
 
-</div>
+        <span *ngIf="menuFechado">
+          CT
+        </span>
 
+        <button
+          class="menu-btn"
+          (click)="toggleMenu()"
+        >
+          ☰
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- MENU -->
     <nav>
-      <p class="section" *ngIf="!menuFechado">USER</p>
-      <a href="#">
+
+      <!-- USER -->
+      <p
+        class="section"
+        *ngIf="!menuFechado"
+      >
+        USER
+      </p>
+
+      <!-- HOME -->
+      <a
+        routerLink="/home"
+        routerLinkActive="ativo"
+      >
+
         <span>🏠</span>
-        <span *ngIf="!menuFechado" (click)="irParaHome()">Home</span>
+
+        <span *ngIf="!menuFechado">
+          Home
+        </span>
+
       </a>
 
-      <a href="#">
+      <!-- OCORRENCIA -->
+      <a
+        routerLink="/ocorrencia"
+        routerLinkActive="ativo"
+      >
+
         <span>⚠️</span>
-        <span *ngIf="!menuFechado" (click)="irParaOcorrencia()">Ocorrencia</span>
+
+        <span *ngIf="!menuFechado">
+          Ocorrência
+        </span>
+
       </a>
 
-      <a href="#">
+      <!-- PERFIL -->
+      <a
+        routerLink="/perfil"
+        routerLinkActive="ativo"
+      >
+
         <span>👤</span>
-        <span *ngIf="!menuFechado" (click)="irParaPerfil()">Perfil</span>
+
+        <span *ngIf="!menuFechado">
+          Perfil
+        </span>
+
       </a>
 
-      <p class="section" *ngIf="!menuFechado">ADMIN</p>
-      <a href="#">
+      <!-- ADMIN -->
+      <p
+        class="section"
+        *ngIf="!menuFechado"
+      >
+        ADMIN
+      </p>
+
+      <a
+        (click)="irParaAdmin()"
+      >
+
         <span>📊</span>
-        <span *ngIf="!menuFechado">Dashboard</span>
+
+        <span *ngIf="!menuFechado">
+          Dashboard
+        </span>
+
       </a>
 
-      <a href="#">
-        <span>⚙️</span>
-        <span *ngIf="!menuFechado">Config</span>
+      <!-- LOGOUT ADMIN -->
+      <a
+        *ngIf="acessoAdmin"
+        (click)="logoutAdmin()"
+      >
+
+        <span>🚪</span>
+
+        <span *ngIf="!menuFechado">
+          Sair Admin
+        </span>
+
       </a>
+
+      <!-- CONFIG -->
+      <a>
+
+        <span>⚙️</span>
+
+        <span *ngIf="!menuFechado">
+          Config
+        </span>
+
+      </a>
+
     </nav>
 
   </aside>
@@ -51,7 +136,9 @@
   <div class="content">
 
     <main>
+
       <router-outlet></router-outlet>
+
     </main>
 
   </div>

@@ -1,41 +1,118 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+
+import {
+  Router,
+  RouterOutlet,
+  RouterLink,
+  RouterLinkActive
+} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    CommonModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
 
-    constructor(private router: Router) {}
-    
-  protected readonly title = signal('civicTech');
+  constructor(
+    private router: Router
+  ) {}
+
+  protected readonly title =
+    signal('civicTech');
+
   menuFechado = false;
 
-// Simulação (depois vem do Supabase)
-isAdmin = false;
+  // CONTROLE LOGIN ADMIN
+  senhaAdmin = '';
 
-toggleMenu() {
-  this.menuFechado = !this.menuFechado;
-}
+  acessoAdmin = false;
 
-irParaRegistrar() {
-  this.router.navigate(['/registrar']);
-}
+  // Simulação (depois vem do Supabase)
+  isAdmin = false;
 
-irParaOcorrencia() {
-  this.router.navigate(['/ocorrencia']);
-}
+  toggleMenu() {
 
-irParaPerfil() {
-  this.router.navigate(['/perfil']);
-}
+    this.menuFechado =
+      !this.menuFechado;
+  }
 
-irParaHome() {
-  this.router.navigate(['/home']);
-}
+  irParaRegistrar() {
+
+    this.router.navigate([
+      '/registrar'
+    ]);
+  }
+
+  irParaOcorrencia() {
+
+    this.router.navigate([
+      '/ocorrencia'
+    ]);
+  }
+
+  irParaPerfil() {
+
+    this.router.navigate([
+      '/perfil'
+    ]);
+  }
+
+  irParaHome() {
+
+    this.router.navigate([
+      '/home'
+    ]);
+  }
+
+  // LOGIN ADMIN SIMPLES
+  irParaAdmin() {
+
+    // JA ESTA LOGADO
+    if (this.acessoAdmin) {
+
+      this.router.navigate([
+        '/admin'
+      ]);
+
+      return;
+    }
+
+    // PEDE SENHA
+    const senha =
+      prompt('Digite a senha do administrador');
+
+    if (!senha) return;
+
+    // SENHA
+    if (senha === 'civic123') {
+
+      this.acessoAdmin = true;
+
+      this.router.navigate([
+        '/admin'
+      ]);
+
+      return;
+    }
+
+    alert('Senha incorreta');
+  }
+
+  logoutAdmin() {
+
+    this.acessoAdmin = false;
+
+    this.router.navigate([
+      '/home'
+    ]);
+  }
 }
